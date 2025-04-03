@@ -14,7 +14,9 @@ public class SpringBootAppDemoApplication {
 	public static void main(String[] args) {
 		
 		ConfigurableApplicationContext applicationContext = SpringApplication.run(SpringBootAppDemoApplication.class, args);
+
 		DbConfiguration dbConfiguration = applicationContext.getBean(DbConfiguration.class);
+
 		log.info(dbConfiguration.toString());
 	}
 }
