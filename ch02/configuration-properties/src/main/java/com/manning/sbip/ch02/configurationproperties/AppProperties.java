@@ -46,7 +46,7 @@ public class AppProperties {
 		return security;
 	}
 
-	public AppProperties(String name, String ip, @DefaultValue("8080") int port, Security security) {
+	public AppProperties(String name, String ip,@DefaultValue("8080") int port, Security security) {
 		this.name = name;
 		this.ip = ip;
 		this.port = port;

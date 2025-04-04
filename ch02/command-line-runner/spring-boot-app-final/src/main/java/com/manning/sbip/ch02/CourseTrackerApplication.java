@@ -19,12 +19,13 @@ public class CourseTrackerApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         logger.info("CourseTrackerApplication CommandLineRunner has executed");
+        // Provides an implementantion of the run(..) method of CommandLineRunner interface and prints a log statement in the console
     }
 
     @Bean
     public CommandLineRunner commandLineRunner() {
         return args -> {
-            logger.info("CommandLineRunner executed as a bean definition with "+args.length +" arguments");
+            logger.info("CommandLineRunner executed as a bean definition with "+ args.length +" arguments");
             for(int i=0; i<args.length;i++){
                 logger.info("Argument: "+args[i]);
             }
