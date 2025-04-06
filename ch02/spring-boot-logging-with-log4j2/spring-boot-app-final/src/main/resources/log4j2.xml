@@ -1,38 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!--elemento raiz de uma arquivo Log4j2-->
+<!--O atributo status representa o nível dos eventos internos do Log4j2-->
 <Configuration status="WARN">
+
+    <!--Define espaços reservados (placeholders) comuns que podem ser usados em outras partes do arquivo XML.-->
     <Properties>
-        <Property name="LOG_PATTERN">
+        <Property name="LOG_PATTERN"> <!--a variável LOG_PATTERN pode ser reutilizado em outrors trechos do arquivo-->
             %d{yyyy-MM-dd HH:mm:ss.SSS} [%5p] [%15.15t] %-40.40c{1.} : %m%n%ex
         </Property>
     </Properties>
+
+    <!--Lista de Appenders - Uma lista de appdenrs em Log4j2 é basicamente um conjunto de "destinos" para onde os logs-->
+    <!--serão enviados. -->
+    <!--Temos dois appenders configurados:-->
     <Appenders>
 
+        <!--ConsoleAppender envia os logs para o console (tela do terminal)-->
         <Console name="ConsoleAppender" target="SYSTEM_OUT">
             <PatternLayout pattern="${LOG_PATTERN}" />
         </Console>
+
+        <!--grava os logs em arquivos, criando novos arquivos com base em tamanho ou tempo, mantendo até 10 arquivos-->
         <RollingFile name="FileAppender"
         fileName="logs/application-log4j2.log"
         filePattern="logs/application-log4j2-%d{yyyy-MM-dd}-%i.log">
+
         <PatternLayout>
             <Pattern>${LOG_PATTERN}</Pattern>
         </PatternLayout>
+
         <Policies>
-            <SizeBasedTriggeringPolicy size="10MB" />
-            <TimeBasedTriggeringPolicy interval="7" />
+            <SizeBasedTriggeringPolicy size="10MB" /> <!--Gira (arquiva) o arquivo de log quando atingir 10MB-->
+            <TimeBasedTriggeringPolicy interval="7" /> <!--Arquiva o log atual após 7 dias-->
         </Policies>
+
+            <!--Máximo de 10 arquivos de log podem ser mantidos no backup-->
         <DefaultRolloverStrategy max="10"/>
+
     </RollingFile>
+
 </Appenders>
+
+
+    <!--Define regras de log para pacotes ou classes específicas-->
 <Loggers>
-<Logger name="com.manning.sbip" level="debug" additivity="false">
-    <AppenderRef ref="FileAppender"/>
-</Logger>
-<Logger name="org.springframework.boot" level="info" additivity="false">
-    <AppenderRef ref="ConsoleAppender"/>
-</Logger>
-<Root level="info">
-    <AppenderRef ref="FileAppender"/>
-    <AppenderRef ref="ConsoleAppender"/>
-</Root>
+
+    <!-- NAME: nome do pacote/classe que queremos monitorar
+        LEVEL: nível de log (ex: debug, info, error etc.)
+        ADDITIVITY: impede que o log se propague para loggers pai
+        APPENDERREF: diz onde o log será enviado (console ou arquivo)
+    -->
+    <Logger
+            name="com.manning.sbip"
+            level="debug"
+            additivity="false">
+        <AppenderRef ref="FileAppender"/>
+
+    </Logger>
+
+
+    <!--Definindo mais uma regra de log-->
+    <Logger
+            name="org.springframework.boot"
+            level="info"
+            additivity="false">
+        <AppenderRef ref="ConsoleAppender"/>
+
+    </Logger>
+
+    <!--Define o logger principal (o padrão para tudo que não tiver um logger específico)-->
+    <Root level="info">
+        <AppenderRef ref="FileAppender"/>
+        <AppenderRef ref="ConsoleAppender"/>
+    </Root>
+
 </Loggers>
+
 </Configuration>
