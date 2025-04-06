@@ -25,7 +25,7 @@ public class CourseTrackerApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         Course course = new Course();
         course.setId(1);
-        course.setRating(0);
+        course.setRating(0); // create a course with a rating of 0, which violates the minimum constraint defined for the rating filed
         Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         Set<ConstraintViolation<Course>> violations = validator.validate(course);
         violations.forEach(courseConstraintViolation -> logger.error("A constraint violation has occurred. Violation details: [{}].", courseConstraintViolation));
