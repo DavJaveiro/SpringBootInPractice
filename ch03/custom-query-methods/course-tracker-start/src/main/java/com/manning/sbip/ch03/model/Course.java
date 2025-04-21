@@ -87,4 +87,15 @@ public class Course {
     public int hashCode() {
         return Objects.hash(Id, name, category, rating, description);
     }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "Id=" + Id +
+                ", name='" + name + '\'' +
+                ", category='" + category + '\'' +
+                ", rating=" + rating +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
