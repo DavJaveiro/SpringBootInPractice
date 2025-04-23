@@ -56,11 +56,11 @@ class CourseTrackerSpringBootApplicationTests {
     }
 
 
+    @Test
     public void givenDataAvailableWhenApplyCustomSortThenGetSortedResult() {
         Pageable customSortPageable = PageRequest.of(0,5, Sort.by("Ratinng").descending().and(Sort.by("Name")));
 
         Condition<Course> customSortFirstCourseCondition = new Condition<Course>() {
-
             @Override
             public boolean matches(Course course) {
                 return course.getId() == 2 && course.getName().equals("Getting Started with Spring Security DSL");
