@@ -1,15 +1,18 @@
 package com.manning.sbip.ch03.repository;
 
 import com.manning.sbip.ch03.model.Course;
+import com.manning.sbip.ch03.DescriptionOnly;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface CourseRepository extends CrudRepository<Course, Long> {
+
+    // Use projection
+    Iterable<DescriptionOnly> getCourseByName(String name);
 
     // Method one
     @Query("select c from Course c where c.category=?1")

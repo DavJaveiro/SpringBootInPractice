@@ -29,6 +29,15 @@ class CourseTrackerSpringBootApplicationTests {
         assertThat(courseRepository.updateRating(1, "Spring Boot with React")).isEqualTo(1);
     }
 
+    @Test
+    public void giveACourseAvaibleWhenGetCourseByNameThenGetCourseDescription(){
+        Iterable<DescriptionOnly> result = courseRepository.getCourseByName("Rapid Spring Boot Application Development");
+
+        assertThat(result)
+                .extracting("description")
+                .contains("Spring Boot gives all the power of the Spring Framework without all of the complexity");
+    }
+
 
 
 

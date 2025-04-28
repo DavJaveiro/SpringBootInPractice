@@ -2,28 +2,24 @@ package com.manning.sbip.ch03.model;
 
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
-@Entity
+@Entity(name = "COURSE")
 @Table(name = "COURSES")
 public class Course {
 
     @Id
-    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @Column(name = "NAME")
     private String name;
-
-    @Column(name = "CATEGORY")
     private String category;
-
-    @Column(name = "RATING")
     private int rating;
-
-    @Column(name = "DESCRIPTION")
     private String description;
+
+    @ManyToMany(mappedBy = "courses") // indica que o mapeamento é feito na entidade Author
+    private Set<Author> authors = new HashSet<>();
 
     public Course() {}
 
