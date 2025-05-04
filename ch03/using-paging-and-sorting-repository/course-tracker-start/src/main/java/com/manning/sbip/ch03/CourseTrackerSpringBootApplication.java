@@ -7,7 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CourseTrackerSpringBootApplication {
 
    public static void main(String[] args) {
-        SpringApplication.run(CourseTrackerSpringBootApplication.class, args);
+       SpringApplication.run(CourseTrackerSpringBootApplication.class, args);
+       System.out.println("Hello World!");
+       System.out.println("Hello World!");
+       System.out.println("Hello World!");
     }
 
 }
