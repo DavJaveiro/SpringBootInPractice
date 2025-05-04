@@ -7,8 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CourseRepository extends CrudRepository<Course, Long> {
 
-    // Finds all courses by category. A find query returns an Iterable type
     Iterable<Course> findAllByCategory(String category);
-
+    Iterable<Course> findAll
 
 }
