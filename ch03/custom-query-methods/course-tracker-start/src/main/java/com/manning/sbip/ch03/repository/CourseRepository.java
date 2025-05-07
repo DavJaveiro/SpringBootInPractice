@@ -11,8 +11,10 @@ import java.util.stream.Stream;
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
-    // Finds all courses by category. A find query returns an Iterable type
     Iterable<Course> findAllByCategory(String category);
+<<<<<<< HEAD
+    Iterable<Course> findAll
+=======
 
     // Finds all courses by description.
     Iterable<Course> findAllByDescription(String description);
@@ -36,5 +38,6 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     Stream<Course> streamAllByCategory(String category);
 
 
+>>>>>>> fa992c6cb95dcb3cb2242c6d56177fb51d473edd
 
 }
