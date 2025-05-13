@@ -5,3 +5,7 @@
 .brand-text {
     font-size: x-large;
 }
+
+th {
+    white-space: nowrap; !important;
+}
