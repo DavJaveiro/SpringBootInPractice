@@ -1,9 +1,26 @@
 DROP TABLE IF EXISTS courses;
-CREATE TABLE courses (
-  id          BIGINT NOT NULL auto_increment,
-  category    VARCHAR(255),
-  description VARCHAR(255),
-  name        VARCHAR(255),
-  rating      INTEGER NOT NULL,
-  PRIMARY KEY (id)
-) engine=innodb;
+DROP TABLE IF EXISTS ct_users;
+
+CREATE TABLE courses
+(
+    id          BIGINT NOT NULL AUTO_INCREMENT,
+    category    VARCHAR(255),
+    description VARCHAR(255),
+    name        VARCHAR(255),
+    rating      INTEGER NOT NULL,
+    PRIMARY KEY (id)
+) ENGINE=InnoDB;
+
+CREATE TABLE ct_users
+(
+    ID               BIGINT NOT NULL AUTO_INCREMENT,
+    EMAIL            VARCHAR(255) NOT NULL,
+    FIRST_NAME       VARCHAR(255) NOT NULL,
+    LAST_NAME        VARCHAR(255) NOT NULL,
+    PASSWORD         VARCHAR(255) NOT NULL,
+    USERNAME         VARCHAR(255) NOT NULL,
+    VERIFIED         BOOLEAN NOT NULL,
+    LOCKED           BOOLEAN NOT NULL,
+    ACC_CRED_EXPIRED BOOLEAN NOT NULL,
+    PRIMARY KEY (ID)
+) ENGINE=InnoDB;
