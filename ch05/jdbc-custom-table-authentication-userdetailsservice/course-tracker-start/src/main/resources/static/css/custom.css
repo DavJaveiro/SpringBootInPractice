@@ -5,3 +5,9 @@
 .brand-text {
     font-size: x-large;
 }
+
+textarea {
+    overflow-y: hidden;
+    resize: none;
+    transition: height 0.2s ease-out;
+}
