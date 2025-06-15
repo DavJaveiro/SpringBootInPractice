@@ -11,7 +11,8 @@ import javax.validation.Valid;
 import java.util.Collections;
 import java.util.List;
 
-@Controller
+@RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class CourseController {
 
     private final CourseService courseService;
