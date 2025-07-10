@@ -16,8 +16,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     	http.requiresChannel().anyRequest().requiresSecure()
 		.and()
         .authorizeRequests()
-                .antMatchers("/login").permitAll()
-                .anyRequest().authenticated().and().formLogin().loginPage("/login").failureUrl("/login-error");
+                .antMatchers("/adduser","/login", "/login-error").permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .failureUrl("/login-error");
     }
 
     @Override

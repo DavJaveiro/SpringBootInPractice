@@ -21,15 +21,15 @@ public class RegistrationController {
     @GetMapping("/adduser")
     public String register(Model model) {
         model.addAttribute("user", new UserDto());
-        return "adduser";
+        return "add-user";
     }
 
     @PostMapping("/adduser")
     public String register(@Valid @ModelAttribute("user") UserDto userDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "adduser";
+            return "add-user";
         }
         userService.createUser(userDto);
-        return "redirect:adduser?sucess= " + userDto.getUsername();
+        return "redirect:/adduser?success";
     }
 }
