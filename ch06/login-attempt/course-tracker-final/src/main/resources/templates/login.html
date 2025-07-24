@@ -12,88 +12,243 @@
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
+	<script src="https://www.google.com/recaptcha/api.js "></script>
+
 	<!-- Ícones -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
 	<style>
 		body {
-			font-family: 'Roboto', sans-serif;
-			background: linear-gradient(135deg, #2c3e50, #4ca1af);
+			font-family: 'Inter', sans-serif;
+			background: linear-gradient(135deg, #1e3c72, #2a5298);
 			min-height: 100vh;
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			padding: 1rem;
+			transition: background 0.5s ease;
 		}
 
 		.login-card {
 			background: white;
-			border-radius: 16px;
-			box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-			padding: 2rem;
-			max-width: 400px;
+			border-radius: 1.5rem;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+			padding: 2.5rem;
 			width: 100%;
+			max-width: 420px;
+			animation: fadeInUp 0.6s ease-out;
 		}
 
-		.login-card .form-control {
-			border-radius: 10px;
+		@keyframes fadeInUp {
+			from {
+				opacity: 0;
+				transform: translateY(20px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
 		}
 
 		.login-card h3 {
-			font-weight: 700;
+			font-weight: 600;
+			margin-bottom: 1.5rem;
+			color: #1e3c72;
 		}
 
-		.btn-dark {
-			border-radius: 8px;
+		.login-card .form-control {
+			border-radius: 12px;
+			padding: 0.75rem 1rem;
+			font-size: 0.95rem;
+			border: 1px solid #ced4da;
+			transition: all 0.3s ease;
+		}
+
+		.login-card .form-control:focus {
+			border-color: #2a5298;
+			box-shadow: 0 0 0 0.2rem rgba(42, 82, 152, 0.25);
+		}
+
+		.btn {
+			border-radius: 10px;
+			font-weight: 600;
+			padding: 0.65rem 1rem;
+			transition: all 0.3s ease;
+		}
+
+		.btn-dark:hover {
+			background-color: #1a252f;
+			transform: translateY(-2px);
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+		}
+
+		.btn-outline-success:hover {
+			background-color: #28a745;
+			color: white;
+			transform: translateY(-2px);
 		}
 
 		.alert {
-			border-radius: 8px;
+			border-radius: 10px;
+			font-size: 0.9rem;
+			padding: 0.65rem 1rem;
 		}
 
 		.logo {
-			width: 40px;
-			height: 40px;
-			margin-right: 10px;
+			width: 48px;
+			height: 48px;
+			object-fit: contain;
+			margin-bottom: 0.5rem;
+		}
+
+		.form-check-input {
+			cursor: pointer;
+		}
+
+		.form-check-label {
+			font-size: 0.9rem;
+		}
+
+		.divider {
+			display: flex;
+			align-items: center;
+			text-align: center;
+			margin: 1.5rem 0;
+		}
+
+		.divider::before,
+		.divider::after {
+			content: '';
+			flex: 1;
+			border-bottom: 1px solid #dee2e6;
+		}
+
+		.divider span {
+			padding: 0 0.5rem;
+			color: #6c757d;
+			font-size: 0.85rem;
+		}
+
+		.forgot-password {
+			font-size: 0.85rem;
+			color: #2a5298;
+		}
+
+		.forgot-password:hover {
+			text-decoration: underline;
+			color: #1e3c72;
+		}
+
+		@media (max-width: 576px) {
+			.login-card {
+				padding: 2rem;
+			}
 		}
 	</style>
 </head>
 <body>
 <div class="login-card">
 	<div class="text-center mb-4">
-		<img src="/images/logo.png" alt="Logo" class="logo">
+		<img src="/images/logo.png" alt="Logo" class="logo" />
 		<h3>Course Tracker</h3>
 	</div>
 
-	<div th:if="${loginError}" class="alert alert-danger">Usuário ou senha incorretos.</div>
-	<div th:if="${loginVerified}" class="alert alert-success">Conta verificada. Faça login.</div>
-	<div th:if="${loginDisabled}" class="alert alert-warning">Conta inativa. Verifique seu e-mail.</div>
-	<div th:if="${loginLocked}" class="alert alert-danger">Conta bloqueada por muitas tentativas.</div>
+	<!-- Mensagens de feedback -->
+	<div th:if="${loginError}" class="alert alert-danger" role="alert">
+		Usuário ou senha incorretos.
+	</div>
+	<div th:if="${loginVerified}" class="alert alert-success" role="alert">
+		Conta verificada. Faça login.
+	</div>
+	<div th:if="${loginDisabled}" class="alert alert-warning" role="alert">
+		Conta inativa. Verifique seu e-mail.
+	</div>
+	<div th:if="${loginLocked}" class="alert alert-danger" role="alert">
+		Conta bloqueada por muitas tentativas.
+	</div>
 
+	<!-- Formulário de login -->
 	<form th:action="@{/login}" method="post">
 		<div class="mb-3">
 			<label for="username" class="form-label">Usuário</label>
-			<input type="text" class="form-control" id="username" name="username" placeholder="Digite seu usuário" required autofocus>
+			<input
+					type="text"
+					class="form-control"
+					id="username"
+					name="username"
+					placeholder="Digite seu usuário"
+					required
+					autofocus
+			/>
 		</div>
 
 		<div class="mb-3">
 			<label for="password" class="form-label">Senha</label>
-			<input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha" required>
+			<input
+					type="password"
+					class="form-control"
+					id="password"
+					name="password"
+					placeholder="Digite sua senha"
+					required
+			/>
 		</div>
 
-		<div class="form-check mb-3">
-			<input type="checkbox" class="form-check-input" id="remember-me" name="remember-me">
-			<label class="form-check-label" for="remember-me">Lembrar de mim</label>
+		<div class="mb-3">
+			<div class="form-check form-check-inline">
+				<input
+						type="checkbox"
+						class="form-check-input"
+						id="remember-me"
+						name="remember-me"
+				/>
+				<label class="form-check-label" for="remember-me">Lembrar de mim</label>
+			</div>
 		</div>
 
 		<div class="d-grid gap-2">
-			<button type="submit" class="btn btn-dark">
-				<i class="bi bi-box-arrow-in-right"></i> Entrar
+			<!-- Google reCAPTCH-->
+			<div class="mb-3 text-center">
+				<div class="g-recaptcha d-inline-block" data-sitekey="6LeY44grAAAAAIxHpJFtlcLZ2pzCpjZn37MCGYx-"
+				data-callback="enableLoginBtn"></div>
+			</div>
+
+			<button type="submit" class="btn btn-dark" id="loginBtn" disabled>
+				<i class="bi bi-box-arrow-in-right me-2"></i> Entrar
 			</button>
+
+
 			<a href="#" th:href="@{/adduser}" class="btn btn-outline-success">
-				<i class="bi bi-person-plus"></i> Criar Conta
+				<i class="bi bi-person-plus me-2"></i> Criar Conta
 			</a>
+			<button type="button" class="btn btn-outline-primary w-100 ">
+				<i class="bi bi-lock me-2"></i> Esqueceu a senha?
+			</button>
 		</div>
+
+
 	</form>
+
+	<!-- Divisória opcional -->
+	<div class="divider">
+		<span>ou continue com</span>
+	</div>
+
+	<!-- Exemplo de botões adicionais -->
+	<div class="d-grid gap-2">
+		<button class="btn btn-outline-primary">
+			<i class="bi bi-google me-2"></i> Google
+		</button>
+		<button class="btn btn-outline-secondary">
+			<i class="bi bi-github me-2"></i> GitHub
+		</button>
+	</div>
 </div>
+
+<script>
+	function enableLoginBtn() {
+		document.getElementById('loginBtn').removeAttribute('disabled');
+	}
+</script>
 </body>
 </html>

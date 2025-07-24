@@ -1,11 +1,10 @@
 package com.manning.sbip.ch06.service.impl;
 
+import com.manning.sbip.ch06.dto.RecaptchaDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import com.manning.sbip.ch06.dto.RecaptchaDto;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +15,6 @@ public class GoogleRecaptchaService {
 
 	private static final String VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify"
 			+ "?secret={secret}&remoteip={remoteip}&response={response}";
-
 	private final RestTemplate restTemplate;
 	
 	@Value("${captcha.secret.key}")
