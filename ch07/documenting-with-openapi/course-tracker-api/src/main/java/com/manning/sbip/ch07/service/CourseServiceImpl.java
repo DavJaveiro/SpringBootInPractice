@@ -2,11 +2,11 @@ package com.manning.sbip.ch07.service;
 
 import java.util.Optional;
 
+import com.manning.sbip.ch07.model.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.manning.sbip.ch07.exception.CourseNotFoundException;
-import com.manning.sbip.ch07.model.Course;
 import com.manning.sbip.ch07.repository.CourseRepository;
 
 @Service

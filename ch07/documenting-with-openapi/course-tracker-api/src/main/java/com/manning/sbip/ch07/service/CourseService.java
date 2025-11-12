@@ -1,8 +1,8 @@
 package com.manning.sbip.ch07.service;
 
-import java.util.Optional;
-
 import com.manning.sbip.ch07.model.Course;
+
+import java.util.Optional;
 
 public interface CourseService {
 

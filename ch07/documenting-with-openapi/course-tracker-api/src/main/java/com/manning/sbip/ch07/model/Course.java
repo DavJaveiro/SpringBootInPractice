@@ -11,10 +11,12 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "COURSES")
 @Data
+@NoArgsConstructor
 public class Course {
 
 	@Id

@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.6.3</version>
+    <version>2.7.13</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.manning.sbip.ch08</groupId>
@@ -18,10 +18,7 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-		<dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
-    </dependency>
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-webflux</artifactId>
@@ -36,6 +33,7 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
+        <version>1.18.34</version>
       <optional>true</optional>
     </dependency>
     <dependency>
@@ -43,10 +41,16 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>de.flapdoodle.embed</groupId>
-      <artifactId>de.flapdoodle.embed.mongo</artifactId>
-    </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-r2dbc -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-r2dbc</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.r2dbc/r2dbc-h2 -->
+        <dependency>
+            <groupId>io.r2dbc</groupId>
+            <artifactId>r2dbc-h2</artifactId>
+        </dependency>
     <dependency>
       <groupId>io.projectreactor</groupId>
       <artifactId>reactor-test</artifactId>
