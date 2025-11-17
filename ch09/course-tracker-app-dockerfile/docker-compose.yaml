@@ -1,0 +1,50 @@
+version: '3.8' # Especificar uma versão é uma boa prática
+
+services:
+  course-tracker-postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: course_tracker
+      POSTGRES_USER: davidsonlinhss
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    # ------------------
+    # 💡 ADIÇÃO 1: HEALTHCHECK
+    # Isso verifica se o banco está pronto para conexões
+    # ------------------
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U davidsonlinhss -d course_tracker"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: .
+    image: api-course-tracker:v1
+    ports:
+      - "8080:8080"
+    # ------------------
+    # 💡 ADIÇÃO 2: DEPENDS_ON COM CONDIÇÃO
+    # Agora, a API só sobe QUANDO o healthcheck do banco passar
+    # ------------------
+    depends_on:
+      course-tracker-postgres:
+        condition: service_healthy # <--- Isso resolve a race condition
+
+    # ------------------
+    # 💡 ADIÇÃO 3: VARIÁVEIS DE AMBIENTE
+    # Isso garante que a API use as configurações corretas,
+    # sobrescrevendo qualquer coisa que esteja no .jar
+    # ------------------
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://course-tracker-postgres:5432/course_tracker
+      - SPRING_DATASOURCE_USERNAME=davidsonlinhss
+      - SPRING_DATASOURCE_PASSWORD=123456
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+volumes:
+  postgres_data:
